@@ -13,7 +13,7 @@ jobs:
 
       - uses: schemathesis/action@v1
         with:
-          schema: "https://api-dev-petropolis.isitics.com/openapi/v1/"
+          schema: "http://127.0.0.1:5123/openapi.json"
 
       - name: Stop containers
         if: always()
