@@ -1,0 +1,15 @@
+meta {
+  name: List Collection Points
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/collection-points
+  body: none
+  auth: bearer
+}
+
+assert {
+  res.status: eq 200
+}

@@ -1,0 +1,16 @@
+meta {
+  name: Finish Collection
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/routes/f7f16595-8537-486b-9027-ee419435980c/collections/{{collectionId}}/finish
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.status: eq "FINISHED"
+}

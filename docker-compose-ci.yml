@@ -1,0 +1,52 @@
+---
+services:
+  # db:
+  #   image: postgres:16
+  #   container_name: ${CONTAINER_NAME}-db
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_DB=${DB_NAME}
+  #     - POSTGRES_USER=${DB_USERNAME}
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
+  #   volumes:
+  #     - pg_data:/var/lib/postgresql/data
+  #   expose:
+  #     - 5432
+  #   networks:
+  #     - petropolis
+
+  petropolis-app:
+    container_name: ${CONTAINER_NAME}
+    image: ${DOCKER_IMAGE}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/v1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    # depends_on:
+    #   - petropolis-db
+    networks:
+      - petropolis
+    ports:
+      - "${EC2_PORT}:3000"
+    volumes:
+      - "sqlite:/app/prisma/database"
+
+volumes:
+  sqlite:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=fs-07f91d6b8c3e461f5.efs.us-east-1.amazonaws.com,rw,nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport
+      device: ":/petropolis/${BRANCH_NAME}/sqlite/"
+  # pg_data:
+  #   # driver: local
+  #   # driver_opts:
+  #   #   type: nfs
+  #   #   o: addr=fs-07f91d6b8c3e461f5.efs.us-east-1.amazonaws.com,rw,nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport
+  #   #   device: ":/petropolis/${BRANCH_NAME}/postgres/"
+
+networks:
+  petropolis:
+    name: petropolis-network

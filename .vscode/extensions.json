@@ -1,0 +1,25 @@
+{
+    "recommendations": [
+        "bruno-api-client.bruno",
+        "formulahendry.code-runner",
+        "robertz.code-snapshot",
+        "vivaxy.vscode-conventional-commits",
+        "mikestead.dotenv",
+        "editorconfig.editorconfig",
+        "dbaeumer.vscode-eslint",
+        "mhutchie.git-graph",
+        "github.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "lokalise.i18n-ally",
+        "bierner.jsdoc-markdown-highlighting",
+        "ritwickdey.liveserver",
+        "ms-vsliveshare.vsliveshare",
+        "pkief.material-icon-theme",
+        "cweijan.vscode-postgresql-client2",
+        "esbenp.prettier-vscode",
+        "prisma.prisma",
+        "foxundermoon.shell-format",
+        "vitest.explorer",
+        "kingwl.vscode-vitest-runner"
+    ]
+}

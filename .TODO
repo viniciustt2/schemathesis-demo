@@ -1,0 +1,7 @@
+[ ] possibilitar importar usando @ para ter atalhos
+[ ] variável de ambiente para usar mocks em vez de prisma
+[ ] reestruturar os comandos do package.json
+[ ] melhorar ordem de execução de testes em hook de pre-commit
+[ ] adicionar mais exemplos para o schemathesis usar
+[ ] adicionar mais testes unitários e de integração da infra
+[x] adicionar banco de dados sqlite

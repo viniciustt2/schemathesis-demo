@@ -1,0 +1,8 @@
+{
+    "src/**/*.ts": [
+        "yarn style",
+        "yarn typecheck",
+        "yarn lint"
+    ],
+    "**/*.md": "yarn style"
+}

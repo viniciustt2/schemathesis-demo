@@ -1,0 +1,16 @@
+meta {
+  name: Me
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/me
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.fullName: eq Motorista
+}
