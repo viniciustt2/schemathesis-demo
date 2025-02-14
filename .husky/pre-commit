@@ -1,0 +1,33 @@
+# Análise do Código
+yarn lint
+yarn style
+yarn typecheck
+yarn compliance
+
+# Teste smoke
+yarn test:smoke
+
+# Testes unitários
+yarn test:unit
+
+# Migração do banco de dados
+yarn migrate:local
+yarn migrate:local:reset --force
+
+# Testes fim a fim
+yarn test:e2e
+
+# Limpar banco para teste de API
+yarn migrate:local:reset --force
+
+# Testes de API
+#!/bin/bash
+ 
+if [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "win32" ]] || [[ "$MSYSTEM" == MINGW* ]]; then
+    yarn e2e:run:win
+else
+    yarn e2e:run
+fi
+
+# Limpar banco no final de tudo
+yarn migrate:local:reset --force

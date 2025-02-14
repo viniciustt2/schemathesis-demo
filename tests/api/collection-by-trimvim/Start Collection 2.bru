@@ -1,0 +1,16 @@
+meta {
+  name: Start Collection 2
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/routes/f7f16595-8537-486b-9027-ee419435980c/collections/{{collectionId2}}/start
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.status: eq "IN_PROGRESS"
+}
