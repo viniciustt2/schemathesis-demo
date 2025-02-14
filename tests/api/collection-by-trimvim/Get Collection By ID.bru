@@ -1,0 +1,16 @@
+meta {
+  name: Get Collection By ID
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{baseUrl}}/collections/a323eadb-1ffc-4227-b4c4-0b9ee48d38a2
+  body: none
+  auth: none
+}
+
+
+assert {
+  res.status: eq 200
+}

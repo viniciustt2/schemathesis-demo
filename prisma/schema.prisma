@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Vehicles {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Users {
+  id        String   @id @default(uuid())
+  fullName  String
+  initials  String
+  routes    Routes[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CollectionPoints {
+  id                     String   @id @default(uuid())
+  name                   String
+  address                String
+  status                 String
+  shifts                 String?
+  contact                String
+  type                   String
+  bestCollectionDay      String?
+  responsible            String?
+  selectiveCollectionDay String?
+  weeklyGlassVolume      Float?
+  relevantInfos          String?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  collections Collection[]
+  routes      RoutesCollectionPoints[]
+  operator    Operator                 @relation(fields: [operatorId], references: [id]) // Relação com o operador
+  operatorId  String
+}
+
+model Collection {
+  id                String           @id @default(uuid())
+  collectionPointId String
+  collectionPoint   CollectionPoints @relation(fields: [collectionPointId], references: [id])
+  routeId           String
+  route             Routes           @relation(fields: [routeId], references: [id])
+  date              DateTime
+  startTime         DateTime?
+  endTime           DateTime?
+  volumeCollected   Float
+  status            String
+  notes             String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
+
+model Routes {
+  id              String    @id @default(uuid())
+  name            String
+  date            DateTime
+  totalDistanceKm Float
+  totalTimeMs     Int
+  status          String
+  executor        Users?    @relation(fields: [executorId], references: [id])
+  executorId      String?
+  startedAt       DateTime?
+  finishedAt      DateTime?
+  reasonFinished  String?
+  comment         String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  collectionPoints RoutesCollectionPoints[]
+  collections      Collection[]
+}
+
+model RoutesCollectionPoints {
+  routeId           String
+  collectionPointId String
+  assignedAt        DateTime @default(now())
+
+  route           Routes           @relation(fields: [routeId], references: [id])
+  collectionPoint CollectionPoints @relation(fields: [collectionPointId], references: [id])
+
+  @@id([routeId, collectionPointId])
+}
+
+model Operator {
+  id                        String   @id @default(uuid())
+  name                      String
+  cep                       String
+  cnpj                      String   @unique
+  contact                   String
+  phone                     String
+  email                     String
+  cnpjFile                  String?
+  municipalRegistrationFile String?
+  environmentalLicenseFile  String?
+  operationLicenseFile      String?
+  status                    String
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  collectionPoints CollectionPoints[]
+}
